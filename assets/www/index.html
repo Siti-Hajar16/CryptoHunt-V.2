@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
+    <title>Crypto V2</title>
+    <style>
+        @font-face {
+            font-family: 'SF Pro Display';
+            src: url('fonts/SF-Pro-Display-Regular.otf') format('opentype');
+            font-weight: normal;
+        }
+        
+        @font-face {
+            font-family: 'SF Pro Text';
+            src: url('fonts/SF-Pro-Text-Bold.otf') format('opentype');
+            font-weight: bold;
+        }
+        
+        @font-face {
+            font-family: 'SF Pro Text';
+            src: url('fonts/SF-Pro-Text-Medium.otf') format('opentype');
+            font-weight: 500;
+        }
+        
+        @font-face {
+            font-family: 'SF Pro Text';
+            src: url('fonts/SF-Pro-Text-Semibold.otf') format('opentype');
+            font-weight: 600;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #060606;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'SF Pro Text', sans-serif;
+            padding-top: 90px;
+        }
+
+        html {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+        }
+
+        .safe-area {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        .logo {
+            width: 136.3px;
+            height: 127px;
+            margin-bottom: 60px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .login-form {
+            width: 100%;
+            padding: 0 24px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+        }
+
+        .input-field {
+            width: 100%;
+            height: 60px;
+            background-color: rgba(37, 37, 37, 0.55);
+            border: none;
+            border-radius: 15px;
+            padding: 10px 16px;
+            color: #FFFFFF;
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: normal;
+            font-size: 17px;
+            scroll-margin-top: 150px
+        }
+
+        .input-field::placeholder {
+            color: rgba(235, 235, 245, 0.6);
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: normal;
+            font-size: 17px;
+        }
+
+        .help-text {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 17px;
+            padding-left: 55px;
+        }
+
+        .help-text span:first-child {
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: 500;
+            color: #818383;
+        }
+
+        .help-text span:last-child {
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: 600;
+            color: #007AFF;
+            cursor: pointer;
+        }
+
+        .login-button {
+            width: 300px;
+            height: 60px;
+            background-color: #007AFF;
+            border: none;
+            border-radius: 15px;
+            color: #FFFFFF;
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            margin: 60px auto 0;
+            display: block;
+            cursor: pointer;
+        }
+
+        @media (min-width: 360px) and (max-width: 395px) {
+            .login-form {
+                padding: 0 16px;
+            }
+
+            .login-button {
+                width: 270px;
+            }
+        }
+
+       /* Success Message Styles */
+.login-success-container {
+    transform: rotate(9.142332325670063e-17rad);
+    background-color: rgba(55, 192, 88, 0.1);
+    backdrop-filter: blur(250px);
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 50px;
+    display: flex;
+    align-items: flex-start;
+    gap: -86px;
+    overflow: hidden;
+    color: rgba(77, 240, 77, 1);
+    justify-content: start;
+    font: 600 18px/1 "SF Pro Text", sans-serif;
+    display: none;
+    margin: 25px auto;
+}
+
+.success-indicator {
+    background-color: rgba(77, 240, 77, 0.9);
+    z-index: 0;
+    display: flex;
+    width: 8px;
+    height: 50px;
+    margin: auto 0;
+}
+
+.success-message {
+    transform: rotate(-9.142332325670063e-17rad);
+    align-self: start;
+    position: absolute;
+    z-index: 0;
+    left: 19px;
+    bottom: 14px;
+    width: 287px;
+    height: 22px;
+}
+
+/* Error Message Styles */
+.error-notification {
+    transform: rotate(9.142332325670063e-17rad);
+    background: rgba(255, 59, 48, 0.1);
+    backdrop-filter: blur(250px);
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    align-items: flex-start;
+    gap: -86px;
+    overflow: hidden;
+    color: rgba(255, 59, 48, 1);
+    justify-content: start;
+    font: 600 18px/1 "SF Pro Text", sans-serif;
+    display: none;
+    margin: 25px auto;
+}
+
+.error-indicator {
+    background: rgba(255, 59, 48, 0.9);
+    z-index: 0;
+    display: flex;
+    width: 8px;
+    height: 50px;
+    margin: auto 0;
+}
+
+.error-message {
+    transform: rotate(-9.142332325670063e-17rad);
+    align-self: start;
+    position: absolute;
+    z-index: 0;
+    left: 18px;
+    bottom: 14px;
+    width: 303px;
+    height: 22px;
+}
+    .warning-alert {
+        border-radius: 35px;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(150px);
+        position: absolute;
+        left: 22px;
+        right: 22px;
+        top: 450px;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        font-family: SF Pro Text, sans-serif;
+        padding: 15px 18px;
+        margin: 0 auto;
+    }
+
+    .warning-content {
+        z-index: 0;
+        display: flex;
+        width: 100%;
+        padding-top: 2px;
+        flex-direction: column;
+        color: #FDC633;
+        font-weight: 600;
+    }
+
+    .warning-header {
+        font-size: 20px;
+        line-height: 1.1;
+        align-self: start;
+        letter-spacing: -0.24px;
+    }
+
+    .warning-icon {
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .warning-message {
+        color: rgba(255, 255, 255, 0.8);
+        font-family: 'SF Pro Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 18px;
+        letter-spacing: -0.24px;
+        position: absolute;
+        z-index: 0;
+        left: 12px;
+        top: 50px;
+        text-align: left;
+        overflow: hidden;
+        padding: 0 5px;
+    }
+
+    .action-container {
+        z-index: 10;
+        display: flex;
+        height: 43px;
+        align-items: center;
+        gap: 40px;
+        margin-top: 110px;
+    }
+
+    .action-button {
+        border-radius: 300px;
+        background: rgba(253, 198, 51, 0.2);
+        width: 100%;
+        height: 43px;
+        border: none;
+        color: #FDC633;
+        cursor: pointer;
+        font-family: 'SF Pro Text', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        letter-spacing: -0.24px;
+        text-align: center;
+    }
+
+    .action-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    /* For smaller screens */
+@media (max-width: 359px) {
+    .warning-alert {
+        width: calc(100% - 30px);
+        left: 17px;
+        right: 17px;
+    }
+    
+    .warning-message {
+        width: calc(100% - 15px);
+        right: 5px;
+        font-size: 14px;
+        font-weight: normal;
+    }
+    
+    .action-button {
+        width: 100%;
+    }
+}
+
+/* For medium screen */
+@media (min-width: 360px) and (max-width: 377px) {
+    .warning-alert {
+        width: calc(100% - 32px);
+        left: 17px;
+        right: 17px;
+    }
+    
+    .warning-message {
+        width: calc(100% - 20px);
+        right: 5px;
+        font-size: 14.5px;
+        font-weight: normal;
+        letter-spacing: -0.18px;
+    }
+    
+    .action-button {
+        width: 100%;
+    }
+}
+
+/* For larger phones */
+@media (min-width: 378px) and (max-width: 410px) {
+    .warning-alert {
+        width: calc(100% - 40px);
+        left: 19px;
+        right: 19px;
+    }
+    
+    .warning-message {
+        width: calc(100% - 25px);
+        right: 6px;
+        font-size: 14.5px;
+    }
+    
+    .action-button {
+        width: 100%;
+    }
+}
+
+    /* Contact Alert Styles */
+.contact-alert {
+    border-radius: 35px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(150px);
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    top: 450px;
+    display: none;
+    flex-direction: column;
+    padding: 15px 15px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2px;
+}
+
+.alert-title {
+    color: #FFFFFF;
+    font-family: 'SF Pro Text', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 22px;
+}
+
+.close-icon {
+    width: 14px;
+    height: 14px;
+    color: #818383;
+    cursor: pointer;
+}
+
+.warning-text {
+    color: #818383;
+    font-family: 'SF Pro Text', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 0.3px;
+    margin-top: 9px;
+}
+
+.assistance-text {
+    color: #FFFFFF;
+    font-family: 'SF Pro Text', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 0.3px;
+    margin-top: 2px;
+}
+
+.contact-list {
+    list-style: none;
+    margin-top: 5px;
+    overflow: hidden;
+    padding: 0 5px;
+}
+
+.contact-item {
+    color: #FFFFFF;
+    font-family: 'SF Pro Text', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 0.3px;
+}
+
+.contact-item + .contact-item {
+    margin-top: 2px;
+}
+
+.contact-link {
+    color: #007AFF;
+    text-decoration: none;
+}
+
+/* Add these to your existing media queries */
+@media (max-width: 359px) {
+    .contact-alert {
+        width: calc(100% - 25px);
+        left: 15px;
+        right: 15px;
+    }
+    
+    .warning-text {
+        font-weight: normal;
+        font-size: 13px;
+        margin-top: 6px;
+    }
+
+    .assistance-text {
+        font-weight: normal;
+        font-size: 13px;
+    }
+
+    .contact-list {
+        margin-top: 5px;
+    }
+
+    .contact-item {
+        font-weight: normal;
+        font-size: 13px;
+   }
+}
+
+@media (min-width: 360px) and (max-width: 370px) {
+    .contact-alert {
+        width: calc(100% - 30px);
+        left: 15px;
+        right: 15px;
+    }
+    
+    .warning-text {
+        font-weight: normal;
+        font-size: 13.5px;
+        margin-top: 6px;
+    }
+
+    .assistance-text {
+        font-weight: normal;
+        font-size: 13.5px;
+    }
+
+    .contact-list {
+        margin-top: 5px;
+    }
+
+    .contact-item {
+        font-weight: normal;
+        font-size: 15px;
+   }
+}
+
+@media (min-width: 371px) and (max-width: 412px) {
+    .contact-alert {
+        width: calc(100% - 30px);
+        left: 15px;
+        right: 15px;
+    }
+    
+    .warning-text {
+        font-weight: normal;
+        font-size: 14px;
+        margin-top: 7px;
+    }
+
+    .assistance-text {
+        font-weight: normal;
+        font-size: 14px;
+    }
+
+    .contact-list {
+        margin-top: 10px;
+    }
+
+    .contact-item {
+        font-weight: normal;
+        font-size: 16px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F93d157aa38ac0fb066af779e715ec5eae34b25f641a4831cdcb3a2fca38ceba1" alt="Crypto Logo">
+    </div>
+    
+    <form class="login-form">
+        <div class="input-group">
+            <div class="input-label">Enter email address</div>
+            <input type="email" class="input-field" placeholder="your email address">
+        </div>
+        
+        <div class="input-group">
+            <div class="input-label">Enter activation code</div>
+            <input type="text" class="input-field" placeholder="your activation code">
+        </div>
+        
+        <div class="help-text">
+            <span>Don't have a code? </span>
+            <span>GET ONE</span>
+        </div>
+
+        <button type="submit" class="login-button">LOGIN</button>
+
+        <div class="login-success-container" role="alert" aria-live="polite">
+            <div class="success-indicator"></div>
+            <div class="success-message">You have successfully logged in.</div>
+        </div>
+
+        <div class="error-notification" role="alert" aria-live="polite">
+            <div class="error-indicator"></div>
+            <div class="error-message">Invalid Activation Code. Try Again!</div>
+        </div>
+
+       <div class="warning-alert" role="alert">
+    <div class="warning-content">
+        <div class="warning-header">
+            <span class="warning-icon">⚠</span>
+            Important Warning 🖐️
+        </div>
+        <div class="warning-message">
+            Ensure you are using a CODE provided by the official developer. Using code obtained through unauthorized channels, a friend or got it maliciously may allow access to the software but will never find you any wallets.
+        </div>
+        <div class="action-container">
+            <button class="action-button" disabled>
+                I TOTALLY AGREE
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="contact-alert" role="alert">
+    <div class="header-content">
+        <h2 class="alert-title">Contact Support Team</h2>
+        <span class="close-icon">✕</span>
+    </div>
+    <p class="warning-text">⚠️ Avoid contacting unauthorized people trying to represent us, they are scammers.</p>
+    <p class="assistance-text">For your legitimate assistance and getting of activation code, reach out to us directly.</p>
+    <ul class="contact-list">
+        <li class="contact-item">• Message us via <a href="mailto:cryptohunt.team@gmail.com" class="contact-link">Email</a></li>
+        <li class="contact-item">• Message us on <a href="https://t.me/CryptoFindTiktok" class="contact-link" target="_blank">Telegram</a></li>
+        <li class="contact-item">• Join our rightful <a href="https://t.me/CryptoFindTiktok" class="contact-link" target="_blank">Telegram channel</a></li>
+    </ul>
+</div>
+    </form>
+        
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.querySelector('.login-form');
+    const emailInput = document.querySelector('input[type="email"]');
+    const codeInput = document.querySelector('input[type="text"]');
+    const successMessage = document.querySelector('.login-success-container');
+    const errorMessage = document.querySelector('.error-notification');
+    const warningAlert = document.querySelector('.warning-alert');
+    const agreeButton = document.querySelector('.action-button');
+    let warningAgreed = false;
+
+    function isTrialExpired() {
+        const validUntil = localStorage.getItem('trialExpiry');
+        
+        return true;
+    }
+
+    function handleSuccessfulLogin(email) {
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('loginTime', Date.now());
+        successMessage.style.display = 'flex';
+        errorMessage.style.display = 'none';
+        
+        setTimeout(() => {
+            window.location.href = 'home.html';
+        }, 2000);
+    }
+
+    function handleFailedLogin() {
+        errorMessage.style.display = 'flex';
+        successMessage.style.display = 'none';
+        
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 3000);
+    }
+
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+       
+
+        const userEmail = emailInput.value.trim();
+        const activationCode = codeInput.value.trim();
+     
+
+        fetch('https://codec-sand.vercel.app/validate-code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                activationCode: activationCode,
+                userEmail: userEmail
+            })
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Server Response:', result);
+            handleSuccessfulLogin(userEmail);
+
+        })
+        .catch((error) => {
+            console.log('Server Error:', error);
+            handleFailedLogin();
+        });
+    });
+
+    agreeButton.addEventListener('click', function() {
+        warningAgreed = true;
+        warningAlert.style.display = 'none';
+        loginForm.dispatchEvent(new Event('submit'));
+    });
+
+    const getOneLink = document.querySelector('.help-text span:last-child');
+    const contactAlert = document.querySelector('.contact-alert');
+    const closeIcon = document.querySelector('.close-icon');
+
+    getOneLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        contactAlert.style.display = 'flex';
+    });
+
+    closeIcon.addEventListener('click', function() {
+        contactAlert.style.display = 'none';
+    });
+});
+</script>

